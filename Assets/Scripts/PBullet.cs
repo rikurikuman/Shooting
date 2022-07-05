@@ -5,6 +5,9 @@ using UnityEngine;
 public class PBullet : MonoBehaviour
 {
     public float speed = 100f;
+
+    public ParticleSystem hitParticle;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,8 +31,10 @@ public class PBullet : MonoBehaviour
     {
         if(other.gameObject.tag == "Enemy")
         {
+            Instantiate(hitParticle, other.transform.position, transform.rotation);
             other.GetComponent<Enemy>().hp -= 1;
             Destroy(gameObject);
+            GameManager.score++;
         }
     }
 
